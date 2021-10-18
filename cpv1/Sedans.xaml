@@ -1,0 +1,90 @@
+﻿<Window x:Class="cpv1.Sedans" x:Name="SedansWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cpv1"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Cars" Height="650" Width="1500"  Loaded="Window_Loaded"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="images\rentlock.ico">
+    
+    <Grid Background="#212121">
+        <Grid>
+            <TextBlock Text="Cars" Foreground="#fff" FontWeight="Bold" HorizontalAlignment="Left" Margin="10 15 0 560" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="40"/>
+            
+            <Button x:Name="RentSedans" HorizontalAlignment="Right" Margin="0 10 500 561" FontSize="18" MinWidth="150" MinHeight="40" Content="Rent" Click="RentSedans_Click" Height="Auto" Loaded="RentSedans_Loaded"></Button>
+            <TextBox x:Name="SearchBox" Foreground="#fff" BorderBrush="#fff" materialDesign:HintAssist.Hint="Search" HorizontalAlignment="Right" MinHeight="40" MaxHeight="40" Margin="0 10 675 0" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="150" MaxWidth="150" FontSize="18"/>        
+       
+        </Grid>
+        
+        <DataGrid local:DataGridTextSearch.SearchValue="{Binding ElementName=SearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" ItemsSource="{Binding TestData}" AutoGenerateColumns="False" x:Name="SedansGrid" HorizontalAlignment="Left" Height="438" Margin="10 70 0 0" VerticalAlignment="Top" Width="987" RowHeight="50"  RowBackground="Gray" AlternatingRowBackground="DarkGray"  HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black" GridLinesVisibility="All" >
+            <DataGrid.Resources>
+                <local:SearchValueConverter x:Key="SearchValueConverter" />
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="local:DataGridTextSearch.IsTextMatch">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource SearchValueConverter}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
+                                <Binding RelativeSource="{RelativeSource Self}" Path="(local:DataGridTextSearch.SearchValue)" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="local:DataGridTextSearch.IsTextMatch" Value="True">
+                            <Setter Property="Background" Value="Orange"  />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding company}" FontSize="18" Header="Company" Width="160" />
+                <DataGridTextColumn Binding="{Binding model }" FontSize="18" Header="Model" Width="160"/>
+                <DataGridTextColumn Binding="{Binding class}" Header="Class" FontSize="18" Width="160"/>
+                <DataGridTextColumn Binding="{Binding power }" Header="Horse power" FontSize="18" Width="110"/>
+                <DataGridTextColumn Binding="{Binding engine}" Header="Engine, L" FontSize="18" Width="95"/>
+                <DataGridTextColumn Binding="{Binding drive}" Header="Drive" FontSize="18" Width="95"/>
+                <DataGridTextColumn Binding="{Binding places }" Header="Places" FontSize="18" Width="95"/>
+                <DataGridTextColumn Binding="{Binding price }" Header="Price, $" FontSize="18" Width="95"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border x:Name="StackAddSedans" MinWidth="400" Margin="0 0 50 0" Background="#212121" BorderBrush="AliceBlue" HorizontalAlignment="Right" Padding="30" MaxWidth="400" MinHeight="300" CornerRadius="20" >
+
+            <StackPanel MinHeight="600" >
+                <TextBlock Text="Add new car" Foreground="#fff" FontSize="24" HorizontalAlignment="Center" FontWeight="Bold" Margin="0" />
+                <TextBox x:Name="textBoxCompanySedans" MaxLength="30" BorderBrush="#fff" FontSize="18" Foreground="#fff" materialDesign:HintAssist.Hint="Enter company" Margin="0 0 0 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewKeyDown="textBoxCompanySedans_PreviewKeyDown" PreviewTextInput="textBoxCompanySedans_PreviewTextInput"/>
+                <TextBox x:Name="textBoxModelSedans" MaxLength="30" BorderBrush="#fff" FontSize="18" Foreground="#fff" materialDesign:HintAssist.Hint="Enter model" Margin="0 0 0 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="textBoxModelSedans_TextChanged" PreviewTextInput="textBoxModelSedans_PreviewTextInput"/>
+                <ComboBox x:Name="comboBoxClassSedans"  materialDesign:HintAssist.Hint="Choose class" Foreground="#fff" FontSize="18" BorderBrush="#fff" Margin="0 10 0 5" Style="{StaticResource MaterialDesignComboBox}">
+                    <TextBlock Background="#212121" Padding="5">Sedan</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">Sportcar</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">Lux</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">Suv</TextBlock>
+                </ComboBox>
+                <TextBox x:Name="textBoxHorseSedans" MaxLength="4" BorderBrush="#fff" FontSize="18" Foreground="#fff" materialDesign:HintAssist.Hint="Enter horse" Margin="0 0 0 5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewKeyDown="textBoxHorseSedans_PreviewKeyDown" PreviewTextInput="textBoxHorseSedans_PreviewTextInput"/>
+                <TextBox x:Name="textBoxEngineSedans" BorderBrush="#fff" MaxLength="3" FontSize="18" Foreground="#fff" materialDesign:HintAssist.Hint="Enter engine" Margin="0 0 0 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="textBoxEngineSedans_PreviewTextInput" PreviewKeyDown="textBoxEngineSedans_PreviewKeyDown"/>
+                <ComboBox x:Name="comboBoxDriveSedans"  materialDesign:HintAssist.Hint="Choose drive" Foreground="#fff" FontSize="18" BorderBrush="#fff" Margin="0 10" Style="{StaticResource MaterialDesignComboBox}">
+                    <TextBlock Background="#212121" Padding="5">AWD</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">RWD</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">FWD</TextBlock>
+                </ComboBox>
+                <ComboBox x:Name="comboBoxPlacesSedans"  materialDesign:HintAssist.Hint="Choose places" Foreground="#fff" FontSize="18" BorderBrush="#fff" Margin="0 10 0 0" Style="{StaticResource MaterialDesignComboBox}">
+                    <TextBlock Background="#212121" Padding="5">2</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">4</TextBlock>
+                    <TextBlock Background="#212121" Padding="5">5</TextBlock>
+                </ComboBox>
+                <TextBox x:Name="textBoxPriceSedans" MaxLength="4" BorderBrush="#fff" FontSize="18" Foreground="#fff" materialDesign:HintAssist.Hint="Enter price" Margin="0 0 0 25" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="textBoxPriceSedans_TextChanged" PreviewTextInput="textBoxPriceSedans_PreviewTextInput" PreviewKeyDown="textBoxPriceSedans_PreviewKeyDown"/>
+
+
+                
+            </StackPanel>
+        </Border>
+        <Grid>
+            <Button x:Name="AddSedans"  Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="150" MinHeight="40" Margin="0 0 160 40" IsDefault="True" FontSize="18" Click="AddSedans_Click"/>
+            <Button x:Name="UpdateSedans" Content="Update" HorizontalAlignment="Right" FontSize="18" MinWidth="150" MinHeight="40" Margin="0 500 670 0" Click="UpdateSedans_Click"></Button>
+            <Button x:Name="BackSedans" IsCancel="True" Content="Back" HorizontalAlignment="Left" FontSize="18" MinWidth="150" MinHeight="40" Margin="10 500 0 0" Click="BackSedans_Click"></Button>
+            <Button x:Name="DeleteSedans" Content="Delete" HorizontalAlignment="Right" FontSize="18" MinWidth="150" MinHeight="40" Margin="0 500 500 0" Click="DeleteSedans_Click"></Button>
+        
+        </Grid>
+    </Grid>
+</Window>
+

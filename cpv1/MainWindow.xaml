@@ -1,0 +1,30 @@
+﻿<Window x:Class="cpv1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cpv1"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="RentLock" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="images\rentlock.ico" Loaded="Window_Loaded">
+    <Grid Background="#505050">
+        <Border MinWidth="400"  Margin="15" Background="#212121" VerticalAlignment="Center" Padding="30" MaxWidth="600" MinHeight="200" CornerRadius="20" >
+            
+            <StackPanel>
+                <Grid>
+                    <TextBlock Text="Hello" Foreground="#fff" FontSize="40" HorizontalAlignment="Left" FontWeight="Bold" Margin="0 0 0 20" />
+                    <Button x:Name="PersonalAccountMain" HorizontalAlignment="Right" FontSize="18" Content="Account" Click="PersonalAccountMain_Click"></Button>
+                    
+                </Grid>
+                <Button x:Name="SedansMain" FontSize="18" Content="Cars" Margin="0 10" Click="SedansMain_Click"></Button>
+                <!--<Button x:Name="SportMain" FontSize="18" Content="Sportcars" Margin="0 10" Click="SportMain_Click"></Button>
+                <Button x:Name="LuxMain" FontSize="18" Content="Lux" Margin="0 10" Click="LuxMain_Click"></Button>
+                <Button x:Name="SuvMain" Content="Suvs" FontSize="18" Margin="0 10" Click="SuvMain_Click"></Button>-->
+                <Button x:Name="ReviewsMain" Content="Reviews" FontSize="18" Margin="0 10" Click="ReviewsMain_Click"></Button>
+                <Button x:Name="WebSiteMain" Margin="0 10" Content="Website" FontSize="18"  Click="WebSiteMain_Click"></Button>
+
+                <Button x:Name="ExitMain" IsCancel="True" Content="Exit" Margin="0 20" FontSize="18" Click="ExitMain_Click"></Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
